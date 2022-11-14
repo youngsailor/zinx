@@ -2,7 +2,7 @@ package common
 
 import (
 	"fmt"
-	"wsserver/configs"
+	"github.com/aceld/zinx/configs"
 	"github.com/go-redis/redis"
 )
 
