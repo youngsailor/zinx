@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/aceld/zinx/configs"
 	"github.com/aceld/zinx/iserverface"
-	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"net/http"
 	"sync/atomic"
@@ -45,7 +44,7 @@ func NewServer() iserverface.IServer {
 	}
 }
 
-func (s *Server) Start(c *gin.Context) {
+func (s *Server) Start(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("[START] Server name: %s,listenner at IP: %s, Port %d is starting\n", s.Name, s.IP, s.Port)
 
 	//开启一个go去做服务端Linster业务
@@ -66,7 +65,7 @@ func (s *Server) Start(c *gin.Context) {
 			}
 		)
 
-		if wsSocket, err = wsUpgrader.Upgrade(c.Writer, c.Request, nil); err != nil {
+		if wsSocket, err = wsUpgrader.Upgrade(w, r, nil); err != nil {
 			return
 		}
 		fmt.Println("Get conn remote addr = ", wsSocket.RemoteAddr().String())
@@ -98,8 +97,8 @@ func (s *Server) Stop() {
 }
 
 // 运行服务
-func (s *Server) Serve(c *gin.Context) {
-	s.Start(c)
+func (s *Server) Serve(w http.ResponseWriter, r *http.Request) {
+	s.Start(w, r)
 
 	//TODO Server.Serve() 是否在启动服务的时候 还要处理其他的事情呢 可以在这里添加
 

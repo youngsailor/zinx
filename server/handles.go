@@ -1,9 +1,9 @@
 package server
 
 import (
-	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
-func WsHandler(c *gin.Context) {
-	GWServer.Serve(c)
+func WsHandler(w http.ResponseWriter, r *http.Request) {
+	GWServer.Serve(w, r)
 }
