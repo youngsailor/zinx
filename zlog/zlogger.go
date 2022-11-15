@@ -3,7 +3,7 @@ package zlog
 /*
 	日志类全部方法 及 API
 
-	Add By Aceld(刘丹冰) 2019-4-23
+	Add By youngsailor(刘丹冰) 2019-4-23
 */
 
 import (

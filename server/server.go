@@ -2,9 +2,9 @@ package server
 
 import (
 	"fmt"
-	"github.com/aceld/zinx/configs"
-	"github.com/aceld/zinx/iserverface"
 	"github.com/gorilla/websocket"
+	"github.com/youngsailor/zinx/configs"
+	"github.com/youngsailor/zinx/iserverface"
 	"net/http"
 	"sync/atomic"
 	"time"

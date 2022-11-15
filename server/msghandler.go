@@ -2,8 +2,8 @@ package server
 
 import (
 	"fmt"
-	"github.com/aceld/zinx/configs"
-	"github.com/aceld/zinx/iserverface"
+	"github.com/youngsailor/zinx/configs"
+	"github.com/youngsailor/zinx/iserverface"
 )
 
 type MsgHandle struct {
