@@ -32,7 +32,7 @@ type Connection struct {
 	mutex sync.Mutex
 }
 
-//初始化链接服务
+// 初始化链接服务
 func NewConnection(server iserverface.IServer, wsSocket *websocket.Conn, connId uint64, msgHandler iserverface.IMsgHandle) *Connection {
 	c := &Connection{
 		Server:    server,
@@ -49,13 +49,13 @@ func NewConnection(server iserverface.IServer, wsSocket *websocket.Conn, connId 
 	return c
 }
 
-//开始
+// 开始
 func (c *Connection) Start() {
 	go c.readLoop()
 	go c.writeLoop()
 }
 
-//关闭连接
+// 关闭连接
 func (c *Connection) Close() {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
@@ -67,22 +67,22 @@ func (c *Connection) Close() {
 	c.Server.GetConnMgr().Remove(c)
 }
 
-//获取链接对象
+// 获取链接对象
 func (c *Connection) GetConnection() *websocket.Conn {
 	return c.Conn
 }
 
-//获取链接ID
+// 获取链接ID
 func (c *Connection) GetConnID() uint64 {
 	return c.connId
 }
 
-//获取远程客户端地址信息
+// 获取远程客户端地址信息
 func (c *Connection) RemoteAddr() net.Addr {
 	return c.Conn.RemoteAddr()
 }
 
-//设置链接属性
+// 设置链接属性
 func (c *Connection) SetProperty(key string, value interface{}) {
 	c.propertyLock.Lock()
 	defer c.propertyLock.Unlock()
@@ -90,7 +90,7 @@ func (c *Connection) SetProperty(key string, value interface{}) {
 	c.property[key] = value
 }
 
-//获取链接属性
+// 获取链接属性
 func (c *Connection) GetProperty(key string) (interface{}, error) {
 	c.propertyLock.RLock()
 	defer c.propertyLock.RUnlock()
@@ -102,7 +102,7 @@ func (c *Connection) GetProperty(key string) (interface{}, error) {
 	}
 }
 
-//移除链接属性
+// 移除链接属性
 func (c *Connection) RemoveProperty(key string) {
 	c.propertyLock.Lock()
 	defer c.propertyLock.Unlock()
@@ -110,7 +110,7 @@ func (c *Connection) RemoveProperty(key string) {
 	delete(c.property, key)
 }
 
-//读websocket
+// 读websocket
 func (c *Connection) readLoop() {
 	var (
 		msgType int
@@ -155,7 +155,7 @@ ERR:
 	c.Close()
 }
 
-//写websocket
+// 写websocket
 func (c *Connection) writeLoop() {
 	var (
 		err error
@@ -202,8 +202,8 @@ func (c *Connection) ReadMessage() (message *Message,err error) {
 }
 **/
 
-//定时检测心跳包
-func (c *Connection) heartBeatChecker() {
+// 定时检测心跳包
+func (c *Connection) HeartBeatChecker() {
 	var (
 		timer *time.Timer
 	)
@@ -226,7 +226,7 @@ func (c *Connection) heartBeatChecker() {
 
 }
 
-//检测心跳
+// 检测心跳
 func (c *Connection) IsAlive() bool {
 	var (
 		now = time.Now()
@@ -240,7 +240,7 @@ func (c *Connection) IsAlive() bool {
 
 }
 
-//更新心跳
+// 更新心跳
 func (c *Connection) KeepAlive() {
 	var (
 		now = time.Now()
